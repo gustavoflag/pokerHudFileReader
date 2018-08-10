@@ -26,17 +26,13 @@ var jaRaise = false;
 var i = 0;
 
 ft.on('line', function(line) {
+    //console.log(line);
     readLine(line);
     if (line == "PRINT"){
         console.log("ID:", mao.id);
         console.log(mao.preFlop.jogadores);
     }
 });
-
-function readLine2(line){
-  console.log(line);
-
-}
 
 var mao = {
   id: "",
@@ -49,15 +45,20 @@ var mao = {
 };
 
 function readLine(line){
-  if (line.indexOf("PokerStars Hand ") != -1){
-    mao.id = line.replace("PokerStars Hand ", "").split(":")[0];
+  if (line.indexOf("Hand #") != -1){
+    var pattern = /#\d*:/;
+    var res = line.match(pattern);
+    if (res){
+      mao.id = res[0].replace(":", "");//.split(":")[0];
+    }
+    //console.log(mao.id);
   } else if (line.indexOf("*** HOLE CARDS ***") != -1){
     leitura = true;
   } else if (line.indexOf("*** FLOP ***") != -1
       || line.indexOf("*** SUMMARY ***") != -1){
     leitura = false;
     jaRaise = false;
-  } /*else if (line.indexOf("Dealt to ") != -1){
+  } else if (line.indexOf("Dealt to ") != -1){
 
   } else if (line.indexOf("Uncalled bet ") != -1
       || line.indexOf("collected ") != -1
@@ -67,11 +68,10 @@ function readLine(line){
       || line.indexOf(" is disconnected") != -1
       || line.indexOf(" is connected") != -1
       || line.indexOf(" finished ") != -1
-      || line.indexOf(" said") != -1){
+      || line.indexOf(" said") != -1
+      || line.indexOf(" show hand") != -1){
 
-  } */
-
-  else if (line.indexOf(":") != -1){
+  } else if (line.indexOf(":") != -1){
     if (leitura){
       var sptLine = line.split(':');
       var nome = sptLine[0];
@@ -87,6 +87,8 @@ function readLine(line){
           acao: acao
         });
       }
+
+
 
 
       /*var jogador = mao.jogadores.preflop.find((jogador) => jogador.nome === nome);

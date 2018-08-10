@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/gustavoflag/pokerHudFileReader/issues"
   },
-  "homepage": "https://github.com/gustavoflag/pokerHudFileReader#readme"
+  "homepage": "https://github.com/gustavoflag/pokerHudFileReader#readme",
+  "dependencies": {
+    "file-tail": "^0.3.0"
+  }
 }
