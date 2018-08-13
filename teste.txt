@@ -8839,7 +8839,7 @@ Seat 2: dioclecio13 (button) (small blind) showed [Ah 9h] and won (65692) with a
 Seat 4: flagao (big blind) showed [Kh Qd] and lost with a pair of Sixes
 
 
-PokerStars Hand #189310862527: Tournament #2369778109, $0.23+$0.02 USD Hold'em No Limit - Level I (10/20) - 2018/07/29 20:11:28 ET
+PokerStars Hand #189310862526: Tournament #2369778109, $0.23+$0.02 USD Hold'em No Limit - Level I (10/20) - 2018/07/29 20:11:28 ET
 Table '2369778109 1' 9-max Seat #1 is the button
 Seat 1: intelllect (1500 in chips) 
 Seat 2: chaq*n voy (1500 in chips) 
@@ -8901,6 +8901,3 @@ Seat 6: thiagoflauzi folded before Flop (didn't bet)
 Seat 7: Paco Mechou collected (127)
 Seat 8: rtrombin22 folded before Flop (didn't bet)
 Seat 9: berilo.rama folded on the Turn
-
-
-

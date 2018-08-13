@@ -1,40 +1,16 @@
 var fs = require('fs');
 var ft = require('file-tail').startTailing('teste.txt');
-var http = require('http');
-var querystring = require('querystring');
-
-
-
-/*
-var watch = require('node-watch');
-
-watch('teste.txt', { recursive: true }, function(evt, name) {
-  //console.log('%s changed.', name);
-  console.log(evt);
-});
-*/
-/*
-const readline = require('readline');
-
-const rl = readline.createInterface({
-  input: fs.createReadStream('teste.txt'),
-  crlfDelay: Infinity
-});
-*/
+const axios = require('axios');
+const configGeral = require('./config.js')
 
 var leitura = false;
 var jogadores = [];
-var jaRaise = false;
+var token;
 
 var i = 0;
 
 ft.on('line', function(line) {
-    //console.log(line);
-    readLine(line);
-    if (line == "PRINT"){
-        console.log("ID:", mao.id);
-        console.log(mao.preFlop.jogadores);
-    }
+  readLine(line);
 });
 
 var mao = {
@@ -49,7 +25,6 @@ function readLine(line){
       mao.idPokerstars = res[0].replace(":", "");//.split(":")[0];
     }
     mao.preFlop = [];
-    //console.log(mao.id);
   } else if (line.indexOf("*** HOLE CARDS ***") != -1){
     leitura = true;
   } else if ((line.indexOf("*** FLOP ***") != -1)
@@ -57,10 +32,14 @@ function readLine(line){
                 || (line.indexOf("*** RIVER ***") != -1)){
     leitura = false;
   } else if (line.indexOf("*** SUMMARY ***") != -1){
-    //console.log(mao);
     leitura = false;
-    jaRaise = false;
-    postMao(mao);
+    postMao(mao, (err, message) => {
+      if (err){
+        console.log('----ERRO AO ENVIAR MÃO', mao.idPokerstars, 'detalhes API:', err, '----');
+      } else {
+        console.log(`----Mão ${mao.idPokerstars} Enviada - msg API: ${message}----`);
+      }
+    });
   } else if (line.indexOf("Dealt to ") != -1){
 
   } else if (line.indexOf("Uncalled bet ") != -1
@@ -94,124 +73,59 @@ function readLine(line){
   }
 }
 
+function login(configPost, callback){
+  if (!token){
+    var loginData = {
+      login: configGeral.userAPI,
+      senha: configGeral.passwordAPI
+    }
 
-function postMao(mao, callback) {
-  var postData = JSON.stringify(mao);
-
-  var options = {
-      hostname: 'localhost',
-      port: 5500,
-      path: '/mao',
-      method: 'POST',
-      //body: postData,
-      headers: {
-          'Content-Type': 'application/json',
-          'Content-Length': postData.length
-      }
-  };
-
-  var req = http.request(options, function (res) {
-      console.log('STATUS:', res.statusCode);
-      console.log('HEADERS:', JSON.stringify(res.headers));
-
-      res.setEncoding('utf8');
-
-      res.on('data', function (chunk) {
-          console.log('BODY:', chunk);
+    axios.post(`${configGeral.urlAPI}/auth/login`, loginData, configPost)
+      .then((response) => {
+        token = response.data.token;
+        callback(null, null);
+      })
+      .catch((err) => {
+        callback(err.response.data, null);
       });
 
-      res.on('end', function () {
-          console.log('No more data in response.');
-      });
-  });
-
-  req.on('error', function (e) {
-      console.log('Problem with request:', e.message);
-  });
-
-  req.write(postData);
-  req.end();
+  } else {
+    callback(null, null);
+  }
 }
 
-/*
-rl.on('line', (line) => {
-  i++;
-  if (line.indexOf("PokerStars Hand ") != -1){
-    idMao = line.replace("PokerStars Hand ", "").split(":")[0];
-  } else if (line.indexOf("*** HOLE CARDS ***") != -1){
-    leitura = true;
-  } else if (line.indexOf("*** FLOP ***") != -1
-      || line.indexOf("*** SUMMARY ***") != -1){
-    leitura = false;
-    jaRaise = false;
-    idMao = "";
-  } /*else if (line.indexOf("Dealt to ") != -1){
-
-  } else if (line.indexOf("Uncalled bet ") != -1
-      || line.indexOf("collected ") != -1
-      || line.indexOf(" is sitting out") != -1
-      || line.indexOf(" has timed out") != -1
-      || line.indexOf(" has returned") != -1
-      || line.indexOf(" is disconnected") != -1
-      || line.indexOf(" is connected") != -1
-      || line.indexOf(" finished ") != -1
-      || line.indexOf(" said") != -1){
-
-  } */
-
-  /*else if (line.indexOf(":") != -1){
-    if (leitura){
-      var sptLine = line.split(':');
-      var nome = sptLine[0];
-      var acao = ""
-
-      if (sptLine.length > 1){
-        acao = sptLine[1];
-      }
-
-      var jogador = jogadores.find((jogador) => jogador.nome === nome);
-
-      if (!jogador){
-        jogador = {
-          nome: nome,
-          maos: 0,
-          fold: 0,
-          call: 0,
-          raise: 0,
-          reRaise: 0,
-          idUltimaMao: "",
-          text: []
-        };
-
-        jogadores.push(jogador);
-      }
-
-      if (idMao != jogador.idUltimaMao){
-        if (acao.indexOf("raises") != -1
-            || acao.indexOf("bets") != -1){
-          if (jaRaise){
-            jogador.reRaise++;
-          } else {
-            jogador.raise++;
-          }
-          jaRaise = true;
-          jogador.maos++;
-        } else if (acao.indexOf("folds") != -1){
-          jogador.fold++;
-          jogador.maos++;
-        } else if (acao.indexOf("calls") != -1){
-          jogador.call++;
-          jogador.maos++;
-        }
-
-        //jogador.text.push(acao);
-
-        jogador.idUltimaMao = idMao;
-      }
+function postMao(mao, callback){
+  var config = {
+    headers:{
+      'Content-Type': 'application/json'
     }
-  }
+  };
 
-  if (i === 8839){
-    console.log(jogadores);
-  }
-});*/
+  login(config, (err, data) => {
+    config.headers.Authorization = `JWT ${token}`;
+
+    axios.post(`${configGeral.urlAPI}/mao`, mao, config)
+      .then((response) => {
+        callback(null, response.data.message);
+      })
+      .catch((err) => {
+        if (err.response.status == 401){ //Token não autorizado
+          console.log('----TOKEN EXPIRADO, Tentando novamente----');
+          token = null;
+          login(config, (err, data) => {
+            config.headers.Authorization = `JWT ${token}`;
+
+            axios.post(`${configGeral.urlAPI}/mao`, mao, config)
+              .then((response) => {
+                callback(null, response.data.message);
+              })
+              .catch((err) => {
+                callback(err.response.data, null);
+              });
+          });
+        } else {
+          callback(err.response.data, null);
+        }
+      });
+  });
+}
