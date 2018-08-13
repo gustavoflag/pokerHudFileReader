@@ -1,5 +1,8 @@
 var fs = require('fs');
 var ft = require('file-tail').startTailing('teste.txt');
+var http = require('http');
+var querystring = require('querystring');
+
 
 
 /*
@@ -35,13 +38,7 @@ ft.on('line', function(line) {
 });
 
 var mao = {
-  id: "",
-  preFlop: {
-    jogadores: [/*{
-      nome: "",
-      acao: ""
-    }*/]
-  }
+  idPokerstars: ""
 };
 
 function readLine(line){
@@ -49,15 +46,21 @@ function readLine(line){
     var pattern = /#\d*:/;
     var res = line.match(pattern);
     if (res){
-      mao.id = res[0].replace(":", "");//.split(":")[0];
+      mao.idPokerstars = res[0].replace(":", "");//.split(":")[0];
     }
+    mao.preFlop = [];
     //console.log(mao.id);
   } else if (line.indexOf("*** HOLE CARDS ***") != -1){
     leitura = true;
-  } else if (line.indexOf("*** FLOP ***") != -1
-      || line.indexOf("*** SUMMARY ***") != -1){
+  } else if ((line.indexOf("*** FLOP ***") != -1)
+                || (line.indexOf("*** TURN ***") != -1)
+                || (line.indexOf("*** RIVER ***") != -1)){
+    leitura = false;
+  } else if (line.indexOf("*** SUMMARY ***") != -1){
+    //console.log(mao);
     leitura = false;
     jaRaise = false;
+    postMao(mao);
   } else if (line.indexOf("Dealt to ") != -1){
 
   } else if (line.indexOf("Uncalled bet ") != -1
@@ -72,7 +75,7 @@ function readLine(line){
       || line.indexOf(" show hand") != -1){
 
   } else if (line.indexOf(":") != -1){
-    if (leitura){
+    if (leitura == true){
       var sptLine = line.split(':');
       var nome = sptLine[0];
       var acao = "";
@@ -82,55 +85,52 @@ function readLine(line){
       }
 
       if (nome != ""){
-        mao.preFlop.jogadores.push({
-          nome: nome,
+        mao.preFlop.push({
+          nomeJogador: nome,
           acao: acao
         });
       }
-
-
-
-
-      /*var jogador = mao.jogadores.preflop.find((jogador) => jogador.nome === nome);
-
-      if (!jogador){
-        jogador = {
-          nome: nome,
-          maos: 0,
-          fold: 0,
-          call: 0,
-          raise: 0,
-          reRaise: 0,
-          idUltimaMao: ""
-        };
-
-        jogadores.push(jogador);
-      }
-      //console.log(`${jogador.nome} ${acao}`);
-
-      if (idMao != jogador.idUltimaMao){
-        if (acao.indexOf("raises") != -1
-            || acao.indexOf("bets") != -1){
-          if (jaRaise){
-            jogador.reRaise++;
-          } else {
-            jogador.raise++;
-          }
-          jaRaise = true;
-          jogador.maos++;
-
-        } else if (acao.indexOf("folds") != -1){
-          jogador.fold++;
-          jogador.maos++;
-        } else if (acao.indexOf("calls") != -1
-                   || acao.indexOf("checks") != -1){
-          jogador.call++;
-          jogador.maos++;
-          //console.log(`${jogador.nome} ${acao}`);
-        }
-      }*/
     }
   }
+}
+
+
+function postMao(mao, callback) {
+  var postData = JSON.stringify(mao);
+
+  var options = {
+      hostname: 'localhost',
+      port: 5500,
+      path: '/mao',
+      method: 'POST',
+      //body: postData,
+      headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': postData.length
+      }
+  };
+
+  var req = http.request(options, function (res) {
+      console.log('STATUS:', res.statusCode);
+      console.log('HEADERS:', JSON.stringify(res.headers));
+
+      res.setEncoding('utf8');
+
+      res.on('data', function (chunk) {
+          console.log('BODY:', chunk);
+      });
+
+      res.on('end', function () {
+          console.log('No more data in response.');
+      });
+  });
+
+  req.on('error', function (e) {
+      console.log('Problem with request:', e.message);
+  });
+
+  req.write(postData);
+  req.end();
 }
 
 /*
