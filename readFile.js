@@ -1,3 +1,26 @@
+const exphbs = require('express-handlebars');
+var express = require('express'),
+  app = express(),
+  port = process.env.PORT || 5600;
+
+app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
+// Use Handlebars view engine
+app.set('view engine', '.hbs');
+app.set('views', __dirname + "\\views");
+
+var routes = require('./routes/pokerHudRoutes');
+
+routes(app);
+
+app.listen(port);
+
+console.log(`Leitor iniciado, acesse o hud em http://localhost:${port}`);
+
+global.jogadoresMao = [
+  {nome: 'jogGlobal1'},
+  {nome: 'jogGlobal2'}
+];
+
 var fs = require('fs');
 var ft = require('file-tail').startTailing('teste.txt');
 const axios = require('axios');
