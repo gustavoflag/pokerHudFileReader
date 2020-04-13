@@ -52,15 +52,14 @@ readEachLineSync('teste.txt', function(line) {
 
 postMaoRecursivo();
 
-//maos.forEach(maoEnvio => {
-//var j = 0;
-
-/*postMao(maoEnvio, (err, message) => {
-  if (err){
-    console.log('----ERRO AO ENVIAR MÃO', maoEnvio.idPokerstars, 'detalhes API:', err, '----');
-  } else {
-    console.log(`----Mão ${maoEnvio.idPokerstars} Enviada - msg API: ${message}----`);
-  }
+/*maos.forEach(maoEnvio => {
+  postMao(maoEnvio, (err, message) => {
+    if (err){
+      console.log('----ERRO AO ENVIAR MÃO', maoEnvio.idPokerstars, 'detalhes API:', err, '----');
+    } else {
+      console.log(`----Mão ${maoEnvio.idPokerstars} Enviada - msg API: ${message}----`);
+    }
+  });
 });*/
   
 
