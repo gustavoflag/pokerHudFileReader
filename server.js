@@ -8,8 +8,6 @@ var handlebarsHelpers = require('handlebars-helpers')();
 
 app.use('/assets', express.static(__dirname + '/assets'));
 
-console.log(__dirname + '/assets');
-
 app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs', helpers: handlebarsHelpers}));
 
 app.set('view engine', '.hbs');

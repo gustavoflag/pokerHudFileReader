@@ -87,14 +87,14 @@ div.box-big div.box-big-content{
 
 div.box{
     background-color: #ffffff;
-    padding: 30px 10px;
+    padding: 28px 10px;
     margin: 5px;
     text-align: center;
     border-radius: 10px;
-    max-height: 200px;
+    max-height: 80px;
     width: 80px;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 24px;
     box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.05);
 }
 
