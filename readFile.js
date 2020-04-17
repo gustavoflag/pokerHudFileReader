@@ -1,32 +1,19 @@
-/*const exphbs = require('express-handlebars');
-var express = require('express'),
-  app = express(),
-  port = process.env.PORT || 5600;
-
-app.engine('.hbs', exphbs({defaultLayout: 'main', extname: '.hbs'}));
-// Use Handlebars view engine
-app.set('view engine', '.hbs');
-app.set('views', __dirname + "\\views");
-
-var routes = require('./routes/pokerHudRoutes');
-
-routes(app);
-
-app.listen(port);
-
-console.log(`Leitor iniciado, acesse o hud em http://localhost:${port}`);
-
-global.jogadoresMao = [
-  {nome: 'jogGlobal1'},
-  {nome: 'jogGlobal2'}
-];*/
-
 var fs = require('fs');
 //var ft = require('file-tail').startTailing('teste.txt');
 const axios = require('axios');
 const configGeral = require('./config.js')
 
 var leitura = false;
+
+const streets = {
+  PRE_FLOP: 0,
+  FLOP: 1,
+  TURN: 2,
+  RIVER: 3
+}
+
+var street = 0;
+
 var jogadores = [];
 var token;
 
@@ -50,9 +37,7 @@ readEachLineSync('teste.txt', function(line) {
   readPokerLine(line);
 });
 
-postMaoRecursivo();
-
-/*maos.forEach(maoEnvio => {
+maos.forEach(maoEnvio => {
   postMao(maoEnvio, (err, message) => {
     if (err){
       console.log('----ERRO AO ENVIAR MÃO', maoEnvio.idPokerstars, 'detalhes API:', err, '----');
@@ -60,25 +45,10 @@ postMaoRecursivo();
       console.log(`----Mão ${maoEnvio.idPokerstars} Enviada - msg API: ${message}----`);
     }
   });
-});*/
+});
   
-
-function postMaoRecursivo(){
-  var maoEnvio = maos[0];
-  postMao(maoEnvio, (err, message) => {
-    if (err){
-      console.log('----ERRO AO ENVIAR MÃO', maoEnvio.idPokerstars, 'detalhes API:', err, '----');
-    } else {
-      console.log(`----Mão ${maoEnvio.idPokerstars} Enviada - msg API: ${message}----`);
-    }
-    maos.splice(0, 1);
-    if (maos.length > 0){
-      postMaoRecursivo();
-    }
-  });
-}
-
 function readPokerLine(line){
+
   if (line.indexOf("Hand #") != -1){
     var pattern = /#\d*:/;
     var res = line.match(pattern);
@@ -86,12 +56,21 @@ function readPokerLine(line){
       mao.idPokerstars = res[0].replace(":", "");//.split(":")[0];
     }
     mao.preFlop = [];
+    mao.flop = [];
+    mao.turn = [];
+    mao.river = [];
+    street = streets.PRE_FLOP;
   } else if (line.indexOf("*** HOLE CARDS ***") != -1){
     leitura = true;
-  } else if ((line.indexOf("*** FLOP ***") != -1)
-                || (line.indexOf("*** TURN ***") != -1)
-                || (line.indexOf("*** RIVER ***") != -1)){
+  } else if (line.indexOf("*** FLOP ***") != -1){
+    leitura = true;
+    street++;
+  } else if (line.indexOf("*** TURN ***") != -1) {
     leitura = false;
+    street++;
+  } else if (line.indexOf("*** RIVER ***") != -1){
+    leitura = false;
+    street++;
   } else if (line.indexOf("*** SUMMARY ***") != -1){
     leitura = false;
     maos.push(mao);
@@ -122,10 +101,32 @@ function readPokerLine(line){
       }
 
       if (nome != ""){
-        mao.preFlop.push({
-          nomeJogador: nome,
-          acao: acao
-        });
+        switch(street){
+          case streets.PRE_FLOP:
+            mao.preFlop.push({
+              nomeJogador: nome,
+              acao: acao
+            });
+            break;
+          case streets.FLOP: 
+            mao.flop.push({
+              nomeJogador: nome,
+              acao: acao
+            });
+            break;
+          case streets.TURN: 
+            mao.turn.push({
+              nomeJogador: nome,
+              acao: acao
+            });
+            break;
+          case streets.RIVER: 
+            mao.river.push({
+              nomeJogador: nome,
+              acao: acao
+            });
+            break;
+        }
       }
     }
   }
@@ -144,7 +145,12 @@ function login(configPost, callback){
         callback(null, null);
       })
       .catch((err) => {
-        callback(err.response.data, null);
+        if (err.response){
+          callback(err.response.data, null);
+        } else {
+          callback(err, null);
+        }
+        
       });
 
   } else {
@@ -167,7 +173,7 @@ function postMao(mao, callback){
         callback(null, response.data.message);
       })
       .catch((err) => {
-        if (err.response.status == 401){ //Token não autorizado
+        if (err && err.response && err.response.status == 401){ //Token não autorizado
           console.log('----TOKEN EXPIRADO, Tentando novamente----');
           token = null;
           login(config, (err, data) => {
@@ -182,8 +188,29 @@ function postMao(mao, callback){
               });
           });
         } else {
-          callback(err.response.data, null);
+          if (err.response){
+            callback(err.response.data, null);
+          } else {
+            callback(err, null);
+          }
         }
       });
   });
 }
+
+/*postMaoRecursivo();
+
+function postMaoRecursivo(){
+  var maoEnvio = maos[0];
+  postMao(maoEnvio, (err, message) => {
+    if (err){
+      console.log('----ERRO AO ENVIAR MÃO', maoEnvio.idPokerstars, 'detalhes API:', err, '----');
+    } else {
+      console.log(`----Mão ${maoEnvio.idPokerstars} Enviada - msg API: ${message}----`);
+    }
+    maos.splice(0, 1);
+    if (maos.length > 0){
+      postMaoRecursivo();
+    }
+  });
+}*/
