@@ -1,0 +1,107 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+    background: #2c2c2c;
+    color: rgb(240,240,240);
+}
+
+nav.nav-topo{
+    background: #0a0a0a;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding-left: 20px;
+    padding-top: 15px;
+    padding-right: 20px;
+    height: 50px;
+    border-bottom: 1px solid #1d1d1d;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.35);
+}
+
+nav.nav-topo h2{
+    margin: auto 15px;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-wrap{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.space-between{
+    justify-content: space-between;
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+.flex-1{
+    flex: 1;
+}
+
+.flex-5{
+    flex: 1;
+}
+
+div.container{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 65px auto;
+}
+
+div.box-big{
+    border: 1px solid #424242;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    max-width: max-content;
+    max-height: max-content;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.3);
+}
+
+div.box-big h3{
+    margin-top: 5px;
+    margin-left: 15px;
+    text-align: center;
+}
+
+div.box-big div.box-big-content{
+    justify-content: space-evenly;
+    max-width: 480px;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+}
+
+div.box{
+    background-color: #0a0a0a;
+    padding: 28px 10px;
+    margin: 5px;
+    text-align: center;
+    border-radius: 10px;
+    max-height: 80px;
+    width: 80px;
+    font-weight: bold;
+    font-size: 24px;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.3);
+}
+
+div.box h4{
+    font-weight: normal;
+    margin-top: -25px;
+    color: #868686;
+    font-size: 12px;
+}
+

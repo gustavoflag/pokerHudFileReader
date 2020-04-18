@@ -66,10 +66,10 @@ function readPokerLine(line){
     leitura = true;
     street++;
   } else if (line.indexOf("*** TURN ***") != -1) {
-    leitura = false;
+    leitura = true;
     street++;
   } else if (line.indexOf("*** RIVER ***") != -1){
-    leitura = false;
+    leitura = true;
     street++;
   } else if (line.indexOf("*** SUMMARY ***") != -1){
     leitura = false;
