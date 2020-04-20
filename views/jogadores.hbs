@@ -1,41 +1,45 @@
 <div class="flex-wrap justify-center">
-    {{#jogadores}}
-    <div class="box-big">
-        <h3>{{nome}}</h3>
-        <div class="box-big-content">
-            <div class="box">
-                <h4>VPIP</h4>
-                {{toFixed estatisticas.vpip 0}}%
-            </div>
-            <div class="box">
-                <h4>PFR</h4>
-                {{toFixed estatisticas.pfR 0}}%
-            </div>
-            <div class="box">
-                <h4>Check-raise</h4>
-                {{toFixed estatisticas.checkRaise 0}}%
-            </div>
-            <div class="box">
-                <h4>3-Bet</h4>
-                {{toFixed estatisticas.pf3B 1}}%
-            </div>
-            <div class="box">
-                <h4>Fold to 3-Bet</h4>
-                {{toFixed estatisticas.pfF3B 0}}%
-            </div>
-            <div class="box">
-                <h4>C-Bet</h4>
-                {{toFixed estatisticas.cBet 0}}%
-            </div>
-            <div class="box">
-                <h4>Fold to C-Bet</h4>
-                {{toFixed estatisticas.fcBet 0}}%
-            </div>
-            <div class="box">
-                <h4>Mãos</h4>
-                {{toFixed maos 0}}
+    {{#if jogadores}}
+        {{#jogadores}}
+        <div class="box-big">
+            <h3>{{nome}}</h3>
+            <div class="box-big-content">
+                <div class="box">
+                    <h4>VPIP</h4>
+                    {{toFixed estatisticas.vpip 0}}%
+                </div>
+                <div class="box">
+                    <h4>PFR</h4>
+                    {{toFixed estatisticas.pfR 0}}%
+                </div>
+                <div class="box">
+                    <h4>Check-raise</h4>
+                    {{toFixed estatisticas.checkRaise 0}}%
+                </div>
+                <div class="box">
+                    <h4>3-Bet</h4>
+                    {{toFixed estatisticas.pf3B 1}}%
+                </div>
+                <div class="box">
+                    <h4>Fold to 3-Bet</h4>
+                    {{toFixed estatisticas.pfF3B 0}}%
+                </div>
+                <div class="box">
+                    <h4>C-Bet</h4>
+                    {{toFixed estatisticas.cBet 0}}%
+                </div>
+                <div class="box">
+                    <h4>Fold to C-Bet</h4>
+                    {{toFixed estatisticas.fcBet 0}}%
+                </div>
+                <div class="box">
+                    <h4>Mãos</h4>
+                    {{toFixed maos 0}}
+                </div>
             </div>
         </div>
-    </div>
-    {{/jogadores}}
+        {{/jogadores}}
+    {{else}}
+        <p>Nenhum jogador encontrado!</p>
+    {{/if}}
 </div>

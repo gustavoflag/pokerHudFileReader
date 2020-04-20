@@ -35,11 +35,10 @@ exports.filtrar = function(req, res) {
 
     axios.get(`${configGeral.urlAPI}/jogador/${req.query.idPokerstars}`, config)
       .then((response) => {
-        //console.log("response get", response.data);
         res.render('jogadores', { title: 'TQSOP Stats', jogadores: response.data });
       })
       .catch(err => {
-        console.log('err', err);
+        res.render('jogadores', { title: 'TQSOP Stats', jogadores: null, error: err.response.data.error.message });
       });
     });
 };
