@@ -23,6 +23,27 @@ exports.listarJogadores = function(req, res) {
     });
 };
 
+exports.filtrar = function(req, res) {
+  var config = {
+    headers:{
+      'Content-Type': 'application/json'
+    }
+  };
+
+  login(config, (err, data) => {
+    config.headers.Authorization = `JWT ${token}`;
+
+    axios.get(`${configGeral.urlAPI}/jogador/${req.query.idPokerstars}`, config)
+      .then((response) => {
+        //console.log("response get", response.data);
+        res.render('jogadores', { title: 'TQSOP Stats', jogadores: response.data });
+      })
+      .catch(err => {
+        console.log('err', err);
+      });
+    });
+};
+
 function login(configPost, callback){
   if (!token){
     var loginData = {

@@ -14,12 +14,16 @@
                 <h2>TQSOP Stats</h2>
             </div>            
             <div>
-                
+                <form action="/filtrar" method="GET">
+                    <input type="text" placeholder="Digite o Id Pokerstars..." name="idPokerstars">
+                    <input type="submit" class="btn" value="Pesquisar">
+                </form>
             </div>
         </div>
     </nav>
     <div class="container">
         {{{body}}}
+        <input type="button" class="float-right" onclick="window.location = '/'" value="Voltar">
     </div>
 </body>
 </html>

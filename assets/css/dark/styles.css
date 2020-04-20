@@ -4,6 +4,20 @@ body{
     color: rgb(240,240,240);
 }
 
+input[type=text]{
+    border: 0;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+input[type=submit],
+input[type=button]{
+    border: 1px solid #7e7e7e;
+    background-color: #5e5e5e;
+    padding: 7px;
+    border-radius: 5px;
+}
+
 nav.nav-topo{
     background: #0a0a0a;
     position: fixed;
@@ -26,6 +40,14 @@ img.logo-tqsop{
     width: 60px;
     height: 60px;
     margin-top: -13px;
+}
+
+.float-left{
+    float: left;
+}
+
+.float-right{
+    float: right;
 }
 
 .flex-row{

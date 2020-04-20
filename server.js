@@ -8,6 +8,7 @@ var express = require('express'),
 var handlebarsHelpers = require('handlebars-helpers')();
 
 app.use('/assets', express.static(__dirname + '/assets'));
+app.use('/favicon.ico', express.static('favicon.ico'));
 
 app.engine('.hbs', exphbs({
   defaultLayout: 'main'
