@@ -1,0 +1,153 @@
+body{
+    font-family: 'Montserrat', sans-serif;
+    background: var(--body-background);
+    color: var(--body-color);
+}
+
+input[type=text]{
+    border: 0;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+input[type=submit],
+input[type=button]{
+    border: 1px solid var(--button-border);
+    background-color: var(--button-background);
+    padding: 7px;
+    border-radius: 5px;
+    color: var(--button-color);
+}
+
+nav.nav-topo{
+    background: var(--box-background);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding-left: 20px;
+    padding-top: 15px;
+    padding-right: 20px;
+    height: 50px;
+    border-bottom: 1px solid var(--nav-border-bottom);
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.35);
+}
+
+nav.nav-topo h2{
+    margin: 0 0 0 8px;
+}
+
+img.logo-tqsop{
+    width: 60px;
+    height: 60px;
+    margin-top: -13px;
+}
+
+.float-left{
+    float: left;
+}
+
+.float-right{
+    float: right;
+}
+
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-wrap{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.space-between{
+    justify-content: space-between;
+}
+
+.justify-center{
+    justify-content: center;
+}
+
+.flex-1{
+    flex: 1;
+}
+
+.flex-5{
+    flex: 1;
+}
+
+div.container{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 65px auto;
+}
+
+div.box-big{
+    border: 1px solid var(--box-border);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    max-width: max-content;
+    max-height: max-content;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.3);
+}
+
+div.box-big h3{
+    margin-top: 5px;
+    margin-left: 15px;
+    text-align: center;
+}
+
+div.box-big div.box-big-content{
+    justify-content: space-evenly;
+    max-width: 480px;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+}
+
+div.box{
+    background-color: var(--box-background);
+    padding: 28px 10px;
+    margin: 5px;
+    text-align: center;
+    border-radius: 10px;
+    max-height: 80px;
+    width: 80px;
+    font-weight: bold;
+    font-size: 24px;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.3);
+}
+
+div.box h4{
+    font-weight: normal;
+    margin-top: -25px;
+    color: var(--box-color);
+    font-size: 12px;
+}
+
+div.textBox{
+    background-color: var(--box-background);
+    padding: 28px 10px;
+    margin: 5px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+
+div.textBox h4{
+    font-weight: normal;
+    margin-top: -25px;
+    color: var(--box-color);
+    font-size: 12px;
+}
+

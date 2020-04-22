@@ -1,7 +1,9 @@
 var fs = require('fs');
 //var ft = require('file-tail').startTailing('teste.txt');
 const axios = require('axios');
-const configGeral = require('./config.js')
+const configGeral = require('./config.js');
+const jogadoresService = require('/services/jogadoresService.js')
+
 
 var leitura = false;
 
@@ -38,7 +40,7 @@ readEachLineSync('teste.txt', function(line) {
 });
 
 maos.forEach(maoEnvio => {
-  postMao(maoEnvio, (err, message) => {
+  jogadoresService.inserirMao(maoEnvio, (err, message) => {
     if (err){
       console.log('----ERRO AO ENVIAR MÃO', maoEnvio.idPokerstars, 'detalhes API:', err, '----');
     } else {
@@ -158,6 +160,7 @@ function login(configPost, callback){
   }
 }
 
+/*
 function postMao(mao, callback){
   var config = {
     headers:{
@@ -196,7 +199,7 @@ function postMao(mao, callback){
         }
       });
   });
-}
+}*/
 
 /*postMaoRecursivo();
 
