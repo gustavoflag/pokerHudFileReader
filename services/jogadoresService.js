@@ -50,7 +50,7 @@ exports.consultarMao = function(idMao, callback) {
       });
 };
 
-exports.insertMao = function(mao, callback){
+exports.inserirMao = function(mao, callback){
     login((err, data) => {
         config.headers.Authorization = `JWT ${token}`;
 

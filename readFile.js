@@ -2,7 +2,7 @@ var fs = require('fs');
 //var ft = require('file-tail').startTailing('teste.txt');
 const axios = require('axios');
 const configGeral = require('./config.js');
-const jogadoresService = require('/services/jogadoresService.js')
+const jogadoresService = require('./services/jogadoresService.js')
 
 
 var leitura = false;
@@ -17,6 +17,8 @@ const streets = {
 var street = 0;
 
 var jogadores = [];
+var arquivos = [];
+
 var token;
 
 var i = 0;
@@ -24,31 +26,54 @@ var i = 0;
 /*ft.on('line', function(line) {
   readLine(line);
 });*/
-
-linhasArquivo = [];
-maos = [];
-
 var mao = {
   idPokerstars: ""
 };
 
-var readEachLineSync = require('read-each-line-sync');
- 
-readEachLineSync('teste.txt', function(line) {
-  console.log(line);
-  readPokerLine(line);
-});
+arquivos = fs.readdirSync('./../HudFiles/');
+//console.log(arquivos);
 
-maos.forEach(maoEnvio => {
-  jogadoresService.inserirMao(maoEnvio, (err, message) => {
-    if (err){
-      console.log('----ERRO AO ENVIAR MÃO', maoEnvio.idPokerstars, 'detalhes API:', err, '----');
-    } else {
-      console.log(`----Mão ${maoEnvio.idPokerstars} Enviada - msg API: ${message}----`);
-    }
+linhasArquivo = [];
+maos = []; 
+
+mao = {
+  idPokerstars: ""
+};
+
+enviarArquivoRecursivo();
+
+function enviarArquivoRecursivo(){  
+  var file = arquivos[0];
+  console.log('***lendo arquivo: ', file);
+  var countMaosEnviadas = 0;
+
+  var readEachLineSync = require('read-each-line-sync');
+
+  readEachLineSync('./../HudFiles/' + file, function(line) {
+    //console.log(line);
+    readPokerLine(line);
   });
-});
-  
+
+  maos.forEach(maoEnvio => {
+    jogadoresService.inserirMao(maoEnvio, (err, message) => {
+      if (err){
+        console.log('----ERRO AO ENVIAR MÃO', maoEnvio.idPokerstars, 'detalhes API:', err, '----');
+      } else {
+        console.log(`----Mão ${maoEnvio.idPokerstars} Enviada - msg API: ${message}----`);
+      }
+
+      countMaosEnviadas++;
+      if (maos.length == countMaosEnviadas){
+        console.log('***arquivo enviado');
+        arquivos.splice(0, 1);
+        if (arquivos.length > 0){
+          enviarArquivoRecursivo();
+        }
+      }
+    });
+  });
+}
+
 function readPokerLine(line){
 
   if (line.indexOf("Hand #") != -1){
@@ -73,6 +98,8 @@ function readPokerLine(line){
   } else if (line.indexOf("*** RIVER ***") != -1){
     leitura = true;
     street++;
+  } else if (line.indexOf("*** SHOW DOWN ***") != -1){
+    leitura = false;
   } else if (line.indexOf("*** SUMMARY ***") != -1){
     leitura = false;
     maos.push(mao);
@@ -90,7 +117,8 @@ function readPokerLine(line){
       || line.indexOf(" is connected") != -1
       || line.indexOf(" finished ") != -1
       || line.indexOf(" said") != -1
-      || line.indexOf(" show hand") != -1){
+      || line.indexOf(" show hand") != -1
+      || line.indexOf(" shows ") != -1){
 
   } else if (line.indexOf(":") != -1){
     if (leitura == true){
@@ -131,32 +159,6 @@ function readPokerLine(line){
         }
       }
     }
-  }
-}
-
-function login(configPost, callback){
-  if (!token){
-    var loginData = {
-      login: configGeral.userAPI,
-      senha: configGeral.passwordAPI
-    }
-
-    axios.post(`${configGeral.urlAPI}/auth/login`, loginData, configPost)
-      .then((response) => {
-        token = response.data.token;
-        callback(null, null);
-      })
-      .catch((err) => {
-        if (err.response){
-          callback(err.response.data, null);
-        } else {
-          callback(err, null);
-        }
-        
-      });
-
-  } else {
-    callback(null, null);
   }
 }
 

@@ -10,28 +10,30 @@
                         <div style="flex-1"><b>{{nomeJogador}}</b> - {{acao}}</div>
                     {{/preFlop}}
                 </div>
-                <div class="textBox">
-                    <h4>Flop</h4>
-                    {{#flop}}
-                        <div style="flex-1"><b>{{nomeJogador}}</b> - {{acao}}</div>
-                    {{/flop}}
-                </div>
-                <div class="textBox">
-                    <h4>Turn</h4>
-                    {{#turn}}
-                        <div style="flex-1"><b>{{nomeJogador}}</b> - {{acao}}</div>
-                    {{/turn}}
-                </div>
-                <div class="textBox">
-                    <h4>River</h4>
-                    {{#river}}
-                        <div style="flex-1"><b>{{nomeJogador}}</b> - {{acao}}</div>
-                    {{/river}}
-                </div>
-                {{!-- <div class="box">
-                    <h4>Check-raise</h4>
-                    {{toFixed estatisticas.checkRaise 0}}%
-                </div> --}}
+                {{#if flop}}
+                    <div class="textBox">
+                        <h4>Flop</h4>
+                        {{#flop}}
+                            <div style="flex-1"><b>{{nomeJogador}}</b> - {{acao}}</div>
+                        {{/flop}}
+                    </div>
+                {{/if}}
+                {{#if turn}}    
+                    <div class="textBox">
+                        <h4>Turn</h4>
+                        {{#turn}}
+                            <div style="flex-1"><b>{{nomeJogador}}</b> - {{acao}}</div>
+                        {{/turn}}
+                    </div>
+                {{/if}}
+                {{#if river}}
+                    <div class="textBox">
+                        <h4>River</h4>
+                        {{#river}}
+                            <div style="flex-1"><b>{{nomeJogador}}</b> - {{acao}}</div>
+                        {{/river}}
+                    </div>
+                {{/if}}
             </div>
         </div> 
         {{/mao}}
