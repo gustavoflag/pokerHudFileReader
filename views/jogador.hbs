@@ -1,0 +1,227 @@
+{{#if jogador}}
+    {{#jogador}}
+    <h2 class="text-align-center">{{nome}}</h2>
+    <div class="flex-wrap justify-center">
+        <div class="box-big">
+            <h3>Estatísticas</h3>
+            <div class="box-big-content">
+                <div class="box">
+                    <h4>VPIP</h4>
+                    {{toFixed estatisticas.vpip 0}}%
+                </div>
+                <div class="box">
+                    <h4>PFR</h4>
+                    {{toFixed estatisticas.pfR 0}}%
+                </div>
+                <div class="box">
+                    <h4>Check-raise</h4>
+                    {{toFixed estatisticas.CR 0}}%
+                </div>
+                <div class="box">
+                    <h4>3-Bet</h4>
+                    {{toFixed estatisticas.pf3B 1}}%
+                </div>
+                <div class="box">
+                    <h4>Fold to 3-Bet</h4>
+                    {{toFixed estatisticas.pfF3B 0}}%
+                </div>
+                <div class="box">
+                    <h4>C-Bet</h4>
+                    {{toFixed estatisticas.CBet 0}}%
+                </div>
+                <div class="box">
+                    <h4>Fold to C-Bet</h4>
+                    {{toFixed estatisticas.FCBet 0}}%
+                </div>
+                <div class="box">
+                    <h4>Mãos</h4>
+                    {{toFixed maos 0}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <h2 class="text-align-center">Dados</h2>
+    <div class="flex-wrap justify-center">
+        <div class="box-big">
+            <h3>Pré-Flop</h3>
+            <div class="box-big-content">
+                <div class="box">
+                    <h4>Mãos</h4>
+                    {{toFixed maos 0}}
+                </div>
+                <div class="box">
+                    <h4>Folds</h4>
+                    {{toFixed preFlopFolds 0}}
+                </div>
+                <div class="box">
+                    <h4>Folds to Bet</h4>
+                    {{toFixed preFlopFoldsBet 0}}
+                </div>
+                <div class="box">
+                    <h4>Limps</h4>
+                    {{toFixed preFlopLimps 0}}
+                </div>
+                <div class="box">
+                    <h4>Checks</h4>
+                    {{toFixed preFlopChecks 0}}
+                </div>
+                <div class="box">
+                    <h4>Calls</h4>
+                    {{toFixed preFlopCalls 0}}
+                </div>
+                <div class="box">
+                    <h4>Raises</h4>
+                    {{toFixed preFlopRaises 0}}
+                </div>
+                <div class="box">
+                    <h4>Raise-Folds</h4>
+                    {{toFixed preFlopRaiseFolds 0}}
+                </div>
+                <div class="box">
+                    <h4>Raise-Calls</h4>
+                    {{toFixed preFlopRaiseCalls 0}}
+                </div>
+                <div class="box">
+                    <h4>3-Bets</h4>
+                    {{toFixed preFlop3Bets 0}}
+                </div>
+                <div class="box">
+                    <h4>4-Bets</h4>
+                    {{toFixed preFlop4Bets 0}}
+                </div>
+            </div>
+        </div>
+        <div class="box-big">
+            <h3>Flop</h3>
+            <div class="box-big-content">
+                <div class="box">
+                    <h4>Flops Vistos</h4>
+                    {{toFixed flops 0}}
+                </div>
+                <div class="box">
+                    <h4>Bets</h4>
+                    {{toFixed flopBets 0}}
+                </div>
+                <div class="box">
+                    <h4>Folds</h4>
+                    {{toFixed flopFolds 0}}
+                </div>
+                <div class="box">
+                    <h4>Raises</h4>
+                    {{toFixed flopRaises 0}}
+                </div>
+                <div class="box">
+                    <h4>Calls</h4>
+                    {{toFixed flopCalls 0}}
+                </div>
+                <div class="box">
+                    <h4>C-Bets</h4>
+                    {{toFixed flopCBets 0}}
+                </div>
+                <div class="box">
+                    <h4>Fold to C-Bet</h4>
+                    {{toFixed flopCBetFolds 0}}
+                </div>
+                <div class="box">
+                    <h4>Call to C-Bet</h4>
+                    {{toFixed flopCBetCalls 0}}
+                </div>
+                <div class="box">
+                    <h4>Raise to C-Bet</h4>
+                    {{toFixed flopCBetRaises 0}}
+                </div>
+                <div class="box">
+                    <h4>Checks</h4>
+                    {{toFixed flopChecks 0}}
+                </div>
+                <div class="box">
+                    <h4>Check-Raises</h4>
+                    {{toFixed flopCheckRaises 0}}
+                </div>
+                <div class="box">
+                    <h4>Check-Calls</h4>
+                    {{toFixed flopCheckCalls 0}}
+                </div>
+            </div>
+        </div>
+        <div class="box-big">
+            <h3>Turn</h3>
+            <div class="box-big-content">
+                <div class="box">
+                    <h4>Turns Vistos</h4>
+                    {{toFixed turns 0}}
+                </div>
+                <div class="box">
+                    <h4>Bets</h4>
+                    {{toFixed turnBets 0}}
+                </div>
+                <div class="box">
+                    <h4>Folds</h4>
+                    {{toFixed turnFolds 0}}
+                </div>
+                <div class="box">
+                    <h4>Raises</h4>
+                    {{toFixed turnRaises 0}}
+                </div>
+                <div class="box">
+                    <h4>Calls</h4>
+                    {{toFixed turnCalls 0}}
+                </div>
+                <div class="box">
+                    <h4>Checks</h4>
+                    {{toFixed turnChecks 0}}
+                </div>
+                <div class="box">
+                    <h4>Check-Raises</h4>
+                    {{toFixed turnCheckRaises 0}}
+                </div>
+                <div class="box">
+                    <h4>Check-Calls</h4>
+                    {{toFixed turnCheckCalls 0}}
+                </div>
+            </div>
+        </div>
+        <div class="box-big">
+            <h3>River</h3>
+            <div class="box-big-content">
+                <div class="box">
+                    <h4>Rivers Vistos</h4>
+                    {{toFixed rivers 0}}
+                </div>
+                <div class="box">
+                    <h4>Bets</h4>
+                    {{toFixed riverBets 0}}
+                </div>
+                <div class="box">
+                    <h4>Folds</h4>
+                    {{toFixed riverFolds 0}}
+                </div>
+                <div class="box">
+                    <h4>Raises</h4>
+                    {{toFixed riverRaises 0}}
+                </div>
+                <div class="box">
+                    <h4>Calls</h4>
+                    {{toFixed riverCalls 0}}
+                </div>
+                <div class="box">
+                    <h4>Checks</h4>
+                    {{toFixed riverChecks 0}}
+                </div>
+                <div class="box">
+                    <h4>Check-Raises</h4>
+                    {{toFixed riverCheckRaises 0}}
+                </div>
+                <div class="box">
+                    <h4>Check-Calls</h4>
+                    {{toFixed riverCheckCalls 0}}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/jogador}}
+{{else}}
+    <div class="flex-wrap justify-center">
+        <p>Nenhum jogador encontrado!</p>
+    </div>
+{{/if}}

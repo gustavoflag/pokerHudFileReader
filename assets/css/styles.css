@@ -74,6 +74,10 @@ img.logo-tqsop{
     justify-content: center;
 }
 
+.text-align-center{
+    text-align: center;
+}
+
 .flex-1{
     flex: 1;
 }
@@ -106,6 +110,11 @@ div.box-big h3{
     text-align: center;
 }
 
+div.box-big a{
+    color: unset;
+    text-decoration: unset;
+}
+
 div.box-big div.box-big-content{
     justify-content: space-evenly;
     max-width: 480px;
@@ -132,6 +141,7 @@ div.box h4{
     margin-top: -25px;
     color: var(--box-color);
     font-size: 12px;
+    white-space: nowrap;
 }
 
 div.textBox{
@@ -150,5 +160,6 @@ div.textBox h4{
     margin-top: -25px;
     color: var(--box-color);
     font-size: 12px;
+    white-space: nowrap;
 }
 

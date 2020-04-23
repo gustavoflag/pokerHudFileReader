@@ -8,6 +8,9 @@ module.exports = function(app) {
   app.route('/filtrar')
     .get(hudController.filtrar);
 
+  app.route('/jogador/:idPokerstars')
+    .get(hudController.filtrar);
+
   app.route('/mao/:idMao')
     .get(hudController.consultarMao);
 };

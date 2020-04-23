@@ -12,11 +12,19 @@ exports.listarJogadores = function(req, res) {
 };
 
 exports.filtrar = function(req, res) {
-  jogadoresService.filtrar(req.query.idPokerstars, response => {
+  var filtro = "";
+
+  if (req.query.idPokerstars){
+    filtro = req.query.idPokerstars;
+  } else if (req.params.idPokerstars){
+    filtro = req.params.idPokerstars;
+  }
+
+  jogadoresService.filtrar(filtro, response => {
     if (response.err){
-      res.render('jogadores', { title: 'TQSOP Stats', jogadores: null, error: response.err });
+      res.render('jogador', { title: 'TQSOP Stats', jogador: null, error: response.err });
     } else {
-      res.render('jogadores', { title: 'TQSOP Stats', jogadores: response.data });
+      res.render('jogador', { title: 'TQSOP Stats', jogador: response.data });
     }
   });
 };
