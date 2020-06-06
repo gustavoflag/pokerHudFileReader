@@ -1,0 +1,17 @@
+{{#jogador}}
+    <p class="text-align-center margin-0">{{nome}}</p>
+    <div class="box-sm">
+        <div class="flex-row line">
+            <div class="flex-1 item-box-sm">{{toFixed estatisticas.vpip 0}}</div>
+            <div class="flex-1 item-box-sm">{{toFixed estatisticas.pfR 0}}</div>
+            <div class="flex-1 item-box-sm">{{toFixed estatisticas.CR 0}}</div>
+            <div class="flex-1 item-box-sm last-box">{{toFixed estatisticas.pf3B 1}}</div>
+        </div>
+        <div class="flex-row">
+            <div class="flex-1 item-box-sm">{{toFixed estatisticas.pfF3B 0}}</div>
+            <div class="flex-1 item-box-sm">{{toFixed estatisticas.CBet 0}}</div>
+            <div class="flex-1 item-box-sm">{{toFixed estatisticas.FCBet 0}}</div>
+            <div class="flex-1 item-box-sm last-box">{{toFixed maos 0}}</div>
+        </div>
+    </div>
+{{/jogador}}

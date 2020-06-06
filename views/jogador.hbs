@@ -3,6 +3,11 @@
     <h2 class="text-align-center">{{nome}}</h2>
     <div class="flex-wrap justify-center">
         <div class="box-big">
+            <div class="float-right">
+                <button type="button" class="btn-link" onclick="javascript:window.open ('/popup/{{nome}}','{{nome}}','width=5, height=5, scrollbars=no, menubar=no, location=no, resizable=no, directories=no, status=no, toolbar=no, titlebar=no' );">
+                    <img src="assets/img/popup.svg" />
+                </button>
+            </div>
             <h3>Estatísticas</h3>
             <div class="box-big-content">
                 <div class="box">

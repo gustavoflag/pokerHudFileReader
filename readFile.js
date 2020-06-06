@@ -43,6 +43,7 @@ mao = {
 enviarArquivoRecursivo();
 
 function enviarArquivoRecursivo(){  
+  maos = [];
   var file = arquivos[0];
   console.log('***lendo arquivo: ', file);
   var countMaosEnviadas = 0;

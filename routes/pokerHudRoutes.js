@@ -11,6 +11,9 @@ module.exports = function(app) {
   app.route('/jogador/:idPokerstars')
     .get(hudController.filtrar);
 
+  app.route('/popup/:idPokerstars')
+    .get(hudController.popup);    
+
   app.route('/mao/:idMao')
     .get(hudController.consultarMao);
 };

@@ -29,6 +29,24 @@ exports.filtrar = function(req, res) {
   });
 };
 
+exports.popup = function(req, res) {
+  var filtro = "";
+
+  if (req.query.idPokerstars){
+    filtro = req.query.idPokerstars;
+  } else if (req.params.idPokerstars){
+    filtro = req.params.idPokerstars;
+  }
+
+  jogadoresService.filtrar(filtro, response => {
+    if (response.err){
+      res.render('jogadorPopup', { layout: 'clean', title: 'TQSOP Stats', jogador: null, error: response.err });
+    } else {
+      res.render('jogadorPopup', { layout: 'clean', title: 'TQSOP Stats', jogador: response.data });
+    }
+  });
+};
+
 exports.consultarMao = function(req, res) {
   jogadoresService.consultarMao(req.params.idMao, response => {
     if (response.err){

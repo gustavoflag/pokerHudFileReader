@@ -86,6 +86,14 @@ img.logo-tqsop{
     flex: 1;
 }
 
+.padding-0{
+    padding:0;
+}
+
+.margin-0{
+    margin:0;
+}
+
 div.container{
     padding-left: 30px;
     padding-right: 30px;
@@ -163,3 +171,26 @@ div.textBox h4{
     white-space: nowrap;
 }
 
+div.box-sm{
+    text-align: center;
+    border: 1px solid var(--box-border);
+}
+
+div.box-sm div.item-box-sm{
+    padding: 3px;
+    border-right: 1px solid var(--box-border);
+}
+
+div.box-sm div.last-box{
+    border-right: 0 !important;
+}
+
+div.box-sm div.line{
+    border-bottom: 1px solid var(--box-border);
+}
+
+button.btn-link{
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
