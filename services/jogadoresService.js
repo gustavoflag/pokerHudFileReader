@@ -47,7 +47,7 @@ exports.consultarMao = function(idMao, callback) {
           .catch(err => {
               callback({err: err, data: null});
           });
-      });
+    });
 };
 
 exports.inserirMao = function(mao, callback){
@@ -81,6 +81,20 @@ exports.inserirMao = function(mao, callback){
                 }
             }
         });
+    });
+};
+
+exports.autoComplete = function (nome, callback) {
+    login((err, data) => {
+        config.headers.Authorization = `JWT ${token}`;
+
+        axios.get(`${configGeral.urlAPI}/autocomplete/${nome}`, config)
+          .then((response) => {
+              callback({ err: null, data: response.data});
+          })
+          .catch(err => {
+              callback({err: err, data: null});
+          });
     });
 };
 

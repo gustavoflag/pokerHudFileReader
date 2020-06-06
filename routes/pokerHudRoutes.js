@@ -11,6 +11,9 @@ module.exports = function(app) {
   app.route('/jogador/:idPokerstars')
     .get(hudController.filtrar);
 
+  app.route('/autocomplete/:term')
+    .get(hudController.autoComplete);
+
   app.route('/popup/:idPokerstars')
     .get(hudController.popup);    
 

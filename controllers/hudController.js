@@ -56,3 +56,14 @@ exports.consultarMao = function(req, res) {
     }
   });
 };
+
+exports.autoComplete = function(req, res) {
+  jogadoresService.autoComplete(req.params.term, response => {
+    if (response.err){
+      //res.render('mao', { title: 'TQSOP Stats', mao: null, error: response.err });
+      res.json([]);
+    } else {
+      res.json(response.data);
+    }
+  });
+};
