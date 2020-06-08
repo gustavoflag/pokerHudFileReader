@@ -1,7 +1,11 @@
 const jogadoresService = require('./../services/jogadoresService.js');
 
 exports.listarJogadores = function(req, res) {
-  jogadoresService.listarTodosJogadores(response => {
+
+  let order = req.params.order;
+  let asc = req.params.asc;
+
+  jogadoresService.listarTodosJogadores(order, asc, response => {
     if (response.err){
       res.render('jogadores', { title: 'TQSOP Stats', jogadores: null, error: response.err });
     } else {

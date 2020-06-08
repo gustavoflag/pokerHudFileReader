@@ -12,12 +12,18 @@ input[type=text]{
 
 input[type=submit],
 input[type=button],
-button[type=button]{
+button[type=button],
+a.button{
     border: 1px solid var(--button-border);
     background-color: var(--button-background);
     padding: 7px;
     border-radius: 5px;
     color: var(--button-color);
+    text-decoration: unset;
+}
+
+a.button-active{
+    background-color: var(--box-border);
 }
 
 nav.nav-topo{

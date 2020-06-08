@@ -4,6 +4,12 @@ module.exports = function(app) {
 
   app.route('/')
     .get(hudController.listarJogadores);
+  
+  app.route('/order/:order')
+    .get(hudController.listarJogadores);
+
+  app.route('/order/:order/:asc')
+    .get(hudController.listarJogadores);
 
   app.route('/filtrar')
     .get(hudController.filtrar);

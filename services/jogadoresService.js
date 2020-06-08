@@ -8,11 +8,20 @@ var config = {
 };
 var token;
 
-exports.listarTodosJogadores = function(callback) {
+exports.listarTodosJogadores = function(order, asc, callback) {
     login((err, data) => {
         config.headers.Authorization = `JWT ${token}`;
 
-        axios.get(`${configGeral.urlAPI}/todosJogadores`, config)
+        let orderQuery = "";
+        if (order){
+            orderQuery += "/" + order;
+
+            if (asc){
+                orderQuery += "/" + asc;
+            }
+        }
+
+        axios.get(`${configGeral.urlAPI}/todosJogadores${orderQuery}`, config)
             .then((response) => {
                 callback({err: null, data: response.data});
             })

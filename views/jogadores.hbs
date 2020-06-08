@@ -1,4 +1,27 @@
 <div class="flex-wrap justify-center">
+    <p>
+        ORDENAR POR:
+        <a class="button" id="link-nome" href="/">
+            Nome
+        </a>&nbsp;
+        <a class="button" id="link-vpip" href="/order/vpip">
+            VPIP
+        </a>&nbsp;
+        <a class="button" id="link-pfR" href="/order/pfR">
+            PFR
+        </a>&nbsp;
+        <a class="button" id="link-CR" href="/order/CR">
+            Check-raise
+        </a>&nbsp;
+        <a class="button" id="link-pf3B" href="/order/pf3B">
+            3-Bet
+        </a>&nbsp;
+        <a class="button" id="link-CBet" href="/order/CBet">
+            C-Bet
+        </a>
+    </p>
+</div>
+<div class="flex-wrap justify-center">
     {{#if jogadores}}
         {{#jogadores}}
         <div class="box-big">
@@ -50,3 +73,22 @@
         <p>Nenhum jogador encontrado!</p>
     {{/if}}
 </div>
+<script>
+     $(function() {
+            var url = document.URL;
+
+            if (url.indexOf('/vpip') != -1){
+                $("#link-vpip").addClass('button-active');
+            } else if (url.indexOf('/pfR') != -1){
+                $("#link-pfR").addClass('button-active');
+            } else if (url.indexOf('/CR') != -1){
+                $("#link-CR").addClass('button-active');
+            } else if (url.indexOf('/pf3B') != -1){
+                $("#link-pf3B").addClass('button-active');
+            } else if (url.indexOf('/CBet') != -1){
+                $("#link-CBet").addClass('button-active');
+            } else {
+                $("#link-nome").addClass('button-active');
+            } 
+     });    
+</script>
