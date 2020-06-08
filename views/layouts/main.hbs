@@ -16,7 +16,11 @@
             <div class="flex-row">
                 <img src="assets/img/TQSOP.png" class="logo-tqsop">
                 <h2>TQSOP Stats</h2>
-            </div>            
+                <div class="menu">
+                    <a class="item-menu" id="menu-home" href="/">Home</a>
+                    <a class="item-menu" id="menu-multipopup" href="/multipopup">Jogo</a>
+                </div>
+            </div>
             <div>
                 <form action="/filtrar" method="GET">
                     <input type="text" required
@@ -65,6 +69,14 @@
                     autocompleteIdPokerstars(req, res);    
                 }
             });
+
+            var url = document.URL;
+
+            if (url.indexOf('/multipopup') != -1){
+                $("#menu-multipopup").addClass('item-menu-active');
+            } else {
+                $("#menu-home").addClass('item-menu-active');
+            }
         });
     </script>
 </body>
