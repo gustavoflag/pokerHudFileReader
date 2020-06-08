@@ -22,6 +22,7 @@
                     <input type="text" required
                         id="filtroIdPokerstars"
                         name="idPokerstars"
+                        class="idPokerstarsAutoComplete"
                         placeholder="Digite o Id Pokerstars..."  
                         oninvalid="this.setCustomValidity('Informe o ID Pokestars')"
                         oninput="this.setCustomValidity('')" >
@@ -35,30 +36,34 @@
         <input type="button" class="float-right" onclick="window.location = '/'" value="Voltar">
     </div>
     <script>
-        $(function() {
-            $("#filtroIdPokerstars").autocomplete({
-                source: function(req,res) {
-                    $.ajax({
-                        url: "/autocomplete/"+req.term,
-                        dataType: "json",
-                        type: "GET",
-                        data: {
-                            term: req.term
-                        },
-                        success: function(data) {
-                            res($.map(data, function(item) {
-                                return {
-                                    label: item.nome,
-                                    value: item.nome
-                                };
-                            }));
-                        },
-                        error: function(xhr) {
-                            console.log('xhr', xhr);
-                            alert(xhr.status + ' : ' + xhr.statusText);
-                        }
-                    });
+        function autocompleteIdPokerstars(req, res){
+            $.ajax({
+                url: "/autocomplete/"+req.term,
+                dataType: "json",
+                type: "GET",
+                data: {
+                    term: req.term
                 },
+                success: function(data) {
+                    res($.map(data, function(item) {
+                        return {
+                            label: item.nome,
+                            value: item.nome
+                        };
+                    }));
+                },
+                error: function(xhr) {
+                    console.log('xhr', xhr);
+                    alert(xhr.status + ' : ' + xhr.statusText);
+                }
+            });
+        }
+
+       $(function() {
+            $(".idPokerstarsAutoComplete").autocomplete({
+                source: function(req,res) {
+                    autocompleteIdPokerstars(req, res);    
+                }
             });
         });
     </script>

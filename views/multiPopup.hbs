@@ -1,0 +1,119 @@
+<div class="flex-row margin-5">
+    <input type="text"
+        id="filtroIdPokerstars1"
+        name="idPokerstars"
+        class="idPokerstarsAutoComplete"
+        placeholder="Digite o Id Pokerstars...">
+</div>
+<div class="flex-row margin-5">
+    <input type="text"
+        id="filtroIdPokerstars2"
+        name="idPokerstars"
+        class="idPokerstarsAutoComplete"
+        placeholder="Digite o Id Pokerstars...">
+</div>
+<div class="flex-row margin-5">
+    <input type="text"
+        id="filtroIdPokerstars3"
+        name="idPokerstars"
+        class="idPokerstarsAutoComplete"
+        placeholder="Digite o Id Pokerstars...">
+</div>
+<div class="flex-row margin-5">
+    <input type="text"
+        id="filtroIdPokerstars4"
+        name="idPokerstars"
+        class="idPokerstarsAutoComplete"
+        placeholder="Digite o Id Pokerstars...">
+</div>
+<div class="flex-row margin-5">
+    <input type="text"
+        id="filtroIdPokerstars5"
+        name="idPokerstars"
+        class="idPokerstarsAutoComplete"
+        placeholder="Digite o Id Pokerstars...">
+</div>
+<div class="flex-row margin-5">
+    <input type="text"
+        id="filtroIdPokerstars6"
+        name="idPokerstars"
+        class="idPokerstarsAutoComplete"
+        placeholder="Digite o Id Pokerstars...">
+</div>
+<div class="flex-row margin-5">
+    <input type="text"
+        id="filtroIdPokerstars7"
+        name="idPokerstars"
+        class="idPokerstarsAutoComplete"
+        placeholder="Digite o Id Pokerstars...">
+</div>
+<div class="flex-row margin-5">
+    <input type="text"
+        id="filtroIdPokerstars8"
+        name="idPokerstars"
+        class="idPokerstarsAutoComplete"
+        placeholder="Digite o Id Pokerstars...">
+</div>
+<div class="flex-row margin-5 text-align-right">
+    <button type="button" onclick="gerarPopups();">
+        Gerar Popups
+    </button>
+</div>
+<script>
+    function gerarPopups(){
+        var filtro1 = document.getElementById('filtroIdPokerstars1');
+        var filtro2 = document.getElementById('filtroIdPokerstars2');
+        var filtro3 = document.getElementById('filtroIdPokerstars3');
+        var filtro4 = document.getElementById('filtroIdPokerstars4');
+        var filtro5 = document.getElementById('filtroIdPokerstars5');
+        var filtro6 = document.getElementById('filtroIdPokerstars6');
+        var filtro7 = document.getElementById('filtroIdPokerstars7');
+        var filtro8 = document.getElementById('filtroIdPokerstars8');
+        
+        var top = 0;
+
+        if (filtro1 && filtro1.value && filtro1.value != ""){
+            gerarPopup(filtro1.value, top);
+            top += 100;
+        }
+
+        if (filtro2 && filtro2.value && filtro2.value != ""){
+            gerarPopup(filtro2.value, top);
+            top += 100;
+        }
+
+        if (filtro3 && filtro3.value && filtro3.value != ""){
+            gerarPopup(filtro3.value, top);
+            top += 100;
+        }
+
+        if (filtro4 && filtro4.value && filtro4.value != ""){
+            gerarPopup(filtro4.value, top);
+            top += 100;
+        }
+
+        if (filtro5 && filtro5.value && filtro5.value != ""){
+            gerarPopup(filtro5.value, top);
+            top += 100;
+        }
+
+        if (filtro6 && filtro6.value && filtro6.value != ""){
+            gerarPopup(filtro6.value, top);
+            top += 100;
+        }
+
+        if (filtro7 && filtro7.value && filtro7.value != ""){
+            gerarPopup(filtro7.value, top);
+            top += 100;
+        }
+
+        if (filtro8 && filtro8.value && filtro8.value != ""){
+            gerarPopup(filtro8.value, top);
+            top += 100;
+        }
+    }
+
+    function gerarPopup(nome, top){
+        window.open('/popup/'+nome, nome,'width=5, height=5, top='+top+', scrollbars=no, menubar=no, location=no, resizable=no, directories=no, status=no, toolbar=no, titlebar=no' );
+    }
+</script>

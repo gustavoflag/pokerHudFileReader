@@ -47,6 +47,10 @@ exports.popup = function(req, res) {
   });
 };
 
+exports.multiPopup = function(req, res){
+  res.render('multiPopup', { title: 'TQSOP Stats' });
+};
+
 exports.consultarMao = function(req, res) {
   jogadoresService.consultarMao(req.params.idMao, response => {
     if (response.err){
@@ -60,7 +64,6 @@ exports.consultarMao = function(req, res) {
 exports.autoComplete = function(req, res) {
   jogadoresService.autoComplete(req.params.term, response => {
     if (response.err){
-      //res.render('mao', { title: 'TQSOP Stats', mao: null, error: response.err });
       res.json([]);
     } else {
       res.json(response.data);

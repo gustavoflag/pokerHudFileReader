@@ -15,7 +15,10 @@ module.exports = function(app) {
     .get(hudController.autoComplete);
 
   app.route('/popup/:idPokerstars')
-    .get(hudController.popup);    
+    .get(hudController.popup);
+  
+  app.route('/multipopup')
+    .get(hudController.multiPopup);
 
   app.route('/mao/:idMao')
     .get(hudController.consultarMao);
