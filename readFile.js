@@ -40,7 +40,9 @@ mao = {
   idPokerstars: ""
 };
 
-enviarArquivoRecursivo();
+enviarArquivoNovo();
+
+//enviarArquivoRecursivo();
 
 function enviarArquivoRecursivo(){  
   maos = [];
@@ -163,60 +165,72 @@ function readPokerLine(line){
   }
 }
 
-/*
-function postMao(mao, callback){
-  var config = {
-    headers:{
-      'Content-Type': 'application/json'
-    }
+function enviarArquivoNovo(){
+  maos = [];
+  var file = arquivos[0];
+  console.log('***lendo arquivo: ', file);
+  var countMaosEnviadas = 0;
+
+  var readEachLineSync = require('read-each-line-sync');
+
+  var torneio = {
   };
 
-  login(config, (err, data) => {
-    config.headers.Authorization = `JWT ${token}`;
+  torneio.idTorneio = "";
+  torneio.maos = [];
 
-    axios.post(`${configGeral.urlAPI}/mao`, mao, config)
-      .then((response) => {
-        callback(null, response.data.message);
-      })
-      .catch((err) => {
-        if (err && err.response && err.response.status == 401){ //Token não autorizado
-          console.log('----TOKEN EXPIRADO, Tentando novamente----');
-          token = null;
-          login(config, (err, data) => {
-            config.headers.Authorization = `JWT ${token}`;
+  var maoCorrente = {
+    idMao: undefined,
+    linhas: []
+  };
 
-            axios.post(`${configGeral.urlAPI}/mao`, mao, config)
-              .then((response) => {
-                callback(null, response.data.message);
-              })
-              .catch((err) => {
-                callback(err.response.data, null);
-              });
-          });
-        } else {
-          if (err.response){
-            callback(err.response.data, null);
-          } else {
-            callback(err, null);
-          }
+  readEachLineSync('./../HudFiles/' + file, function(line) {
+    if (line.indexOf("Hand #") != -1){
+      if (torneio.idTorneio == ""){
+        var pattern = /Tournament #\d*,/;
+        var res = line.match(pattern);
+        if (res){
+          torneio.idTorneio = res[0].replace("Tournament", "")
+            .replace(" ", "")
+            .replace("#", "")
+            .replace(",", "");
         }
-      });
-  });
-}*/
+      }
 
-/*postMaoRecursivo();
-
-function postMaoRecursivo(){
-  var maoEnvio = maos[0];
-  postMao(maoEnvio, (err, message) => {
-    if (err){
-      console.log('----ERRO AO ENVIAR MÃO', maoEnvio.idPokerstars, 'detalhes API:', err, '----');
-    } else {
-      console.log(`----Mão ${maoEnvio.idPokerstars} Enviada - msg API: ${message}----`);
+      if (maoCorrente.idMao){
+        //console.log('add mão', maoCorrente);
+        torneio.maos.push(maoCorrente);
+        maoCorrente = {
+          idMao: undefined,
+          linhas: []
+        };
+      }
+      var pattern = /#\d*:/;
+      var res = line.match(pattern);
+      if (res){
+        maoCorrente.idMao = res[0].replace(":", "").replace("#", "");//.split(":")[0];
+      }
     }
-    maos.splice(0, 1);
-    if (maos.length > 0){
-      postMaoRecursivo();
+    var linhaTrimmed = line.replace("\r", "").replace("\n", "").trim();
+  
+    if (linhaTrimmed && linhaTrimmed.length > 0){
+      maoCorrente.linhas.push(linhaTrimmed);
     }
   });
-}*/
+
+  torneio.maos.push(maoCorrente);
+  maoCorrente = {
+    idMao: undefined,
+    linhas: []
+  };
+
+  jogadoresService.inserirTorneio({ idTorneio: torneio.idTorneio, maos: []}, (err, message) => {
+    if (!err){
+      torneio.maos.forEach(mao => {
+        jogadoresService.inserirMaoTorneio(torneio.idTorneio, mao, (err, message) => {
+          console.log(`err - message`, err, message);
+        });
+      })
+    }
+  });
+}

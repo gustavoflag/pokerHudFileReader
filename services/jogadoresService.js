@@ -107,6 +107,26 @@ exports.autoComplete = function (nome, callback) {
     });
 };
 
+exports.inserirTorneio = function(torneio, callback) {
+    axios.post(`${configGeral.urlAPI}/torneio`, torneio, config)
+        .then((response) => {
+            callback(null, response.data.message);
+        })
+        .catch((err) => {
+            callback(err.response.data, null);
+        });
+};
+
+exports.inserirMaoTorneio = function(idTorneio, mao, callback) {
+    axios.patch(`${configGeral.urlAPI}/torneio/${idTorneio}`, mao, config)
+        .then((response) => {
+            callback(null, response.data.message);
+        })
+        .catch((err) => {
+            callback(err.response.data, null);
+        });
+};
+
 function login(callback){
     if (!token){
         var loginData = {
