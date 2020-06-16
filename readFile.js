@@ -228,7 +228,6 @@ function enviarArquivoNovo(){
     if (!err){
       torneio.maos.forEach(mao => {
         jogadoresService.inserirMaoTorneio(torneio.idTorneio, mao, (err, message) => {
-          console.log(`err - message`, err, message);
         });
       })
     }
