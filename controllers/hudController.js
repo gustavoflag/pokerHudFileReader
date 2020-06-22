@@ -74,3 +74,55 @@ exports.autoComplete = function(req, res) {
     }
   });
 };
+
+exports.listarTorneios = function(req, res) {
+  jogadoresService.listarTorneios(response => {
+    if (response.err){
+      res.render('torneios', { title: 'TQSOP Stats', torneios: null, error: response.err });
+    } else {
+      res.render('torneios', { title: 'TQSOP Stats', torneios: response.data });
+    }
+  });
+};
+
+exports.consultarTorneio = function(req, res) {
+  jogadoresService.consultarTorneio(req.params.idTorneio, response => {
+    if (response.err){
+      res.render('torneio', { title: 'TQSOP Stats', torneio: null, error: response.err });
+    } else {
+      res.render('torneio', { title: 'TQSOP Stats', torneio: response.data });
+    }
+  });
+};
+
+exports.consultarMaoTorneio = function(req, res) {
+  jogadoresService.consultarMaoTorneio(req.params.idTorneio, req.params.idMao, response => {
+    if (response.err){
+      res.render('maoTorneio', { title: 'TQSOP Stats', maoTorneio: null, error: response.err });
+    } else {
+      res.render('maoTorneio', { title: 'TQSOP Stats', maoTorneio: response.data, idTorneio: req.params.idTorneio });
+    }
+  });
+};
+
+exports.exportarMao = function(req, res) {
+  jogadoresService.consultarMaoTorneio(req.params.idTorneio, req.params.idMao, response => {
+    if (response.err){
+      
+    } else {
+      if (response.data){
+        var linhasMao = "";
+        response.data.linhas.forEach(linha => {
+           linhasMao += linha + "\n";
+        });
+
+        res.set('Content-Type', 'text/txt');
+        res.attachment(`Mao_${req.params.idMao}.txt`);
+        res.send(linhasMao);
+      } else {
+        res.send(response);
+      }
+      
+    }
+  });
+}

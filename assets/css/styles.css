@@ -50,6 +50,19 @@ img.logo-tqsop{
     margin-top: -13px;
 }
 
+img.icon-small{
+    width: 22px;
+    height: 22px;
+    margin-bottom: -4px;
+}
+
+img.icon-medium{
+    width: 28px;
+    height: 28px;
+    margin-bottom: -4px;
+    color: rgb(0, 139, 0);
+}
+
 .float-left{
     float: left;
 }
@@ -227,4 +240,18 @@ button.btn-link{
     background-color: transparent;
     border: 0;
     cursor: pointer;
+}
+
+p.p-link a{
+    color: unset;
+    text-decoration: unset;
+}
+
+p.p-link a:hover{
+    text-decoration: underline;
+}
+
+p.p-thin{
+    margin: 0;
+    padding: 0;
 }

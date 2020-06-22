@@ -1,0 +1,10 @@
+<h2>TORNEIOS</h2>
+{{#if torneios}}
+        {{#torneios}}
+            <p class="p-link">
+                <a href="/torneio/{{idTorneio}}">
+                    Torneio #{{idTorneio}} {{#if processado}}<img class="icon-small" src="assets/img/check.svg" />{{else}}<img class="icon-small" src="assets/img/deny.svg" />{{/if}}
+                </a>
+            </p>
+        {{/torneios}}
+{{/if}}

@@ -19,6 +19,7 @@
                 <div class="menu">
                     <a class="item-menu" id="menu-home" href="/">Home</a>
                     <a class="item-menu" id="menu-multipopup" href="/multipopup">Jogo</a>
+                    <a class="item-menu" id="menu-torneios" href="/torneios">Torneios</a>
                 </div>
             </div>
             <div>
@@ -74,6 +75,8 @@
 
             if (url.indexOf('/multipopup') != -1){
                 $("#menu-multipopup").addClass('item-menu-active');
+            } if (url.indexOf('/torneios') != -1 || url.indexOf('/torneio/') != -1){
+                $("#menu-torneios").addClass('item-menu-active');
             } else {
                 $("#menu-home").addClass('item-menu-active');
             }

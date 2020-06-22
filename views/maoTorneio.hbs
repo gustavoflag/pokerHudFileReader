@@ -1,0 +1,15 @@
+{{#if maoTorneio}}
+    {{#maoTorneio}}
+        <h2>
+            Mao #{{idMao}} {{#if processado}}<img class="icon-medium" src="assets/img/check.svg" />{{else}}<img class="icon-medium" src="assets/img/deny.svg" />{{/if}}
+            <a class="button" href="/torneio/{{../idTorneio}}/mao/{{idMao}}/exportar"> 
+                .TXT
+            </a>
+        </h2>
+        <div id="text-mao">
+            {{#linhas}}
+                <p class="p-thin">{{.}}</p>
+            {{/linhas}}
+        </div>
+    {{/maoTorneio}}
+{{/if}}

@@ -28,4 +28,16 @@ module.exports = function(app) {
 
   app.route('/mao/:idMao')
     .get(hudController.consultarMao);
+  
+  app.route('/torneios')
+    .get(hudController.listarTorneios);
+
+  app.route('/torneio/:idTorneio')
+    .get(hudController.consultarTorneio);
+
+  app.route('/torneio/:idTorneio/mao/:idMao')
+    .get(hudController.consultarMaoTorneio);
+
+  app.route('/torneio/:idTorneio/mao/:idMao/exportar')
+    .get(hudController.exportarMao);
 };

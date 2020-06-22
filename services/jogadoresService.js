@@ -61,6 +61,9 @@ exports.consultarMao = function(idMao, callback) {
 
 exports.inserirMao = function(mao, callback){
     login((err, data) => {
+        if (err){
+            console.log('err', err);
+        }
         config.headers.Authorization = `JWT ${token}`;
 
         axios.post(`${configGeral.urlAPI}/mao`, mao, config)
@@ -108,23 +111,84 @@ exports.autoComplete = function (nome, callback) {
 };
 
 exports.inserirTorneio = function(torneio, callback) {
-    axios.post(`${configGeral.urlAPI}/torneio`, torneio, config)
-        .then((response) => {
-            callback(null, response.data.message);
-        })
-        .catch((err) => {
-            callback(err.response.data, null);
-        });
+    login((err, data) => {
+        if (err){
+            console.log('err', err);
+        }
+        config.headers.Authorization = `JWT ${token}`;
+        axios.post(`${configGeral.urlAPI}/torneio`, torneio, config)
+            .then((response) => {
+                callback(null, response.data.message);
+            })
+            .catch((err) => {
+                callback(err.response.data, null);
+            });
+    });
 };
 
 exports.inserirMaoTorneio = function(idTorneio, mao, callback) {
-    axios.patch(`${configGeral.urlAPI}/torneio/${idTorneio}`, mao, config)
-        .then((response) => {
-            callback(null, response.data.message);
-        })
-        .catch((err) => {
-            callback(err.response.data, null);
+    login((err, data) => {
+        config.headers.Authorization = `JWT ${token}`;
+        axios.patch(`${configGeral.urlAPI}/torneio/${idTorneio}`, mao, config)
+            .then((response) => {
+                callback(null, response.data.message);
+            })
+            .catch((err) => {
+                callback(err, null);
+            });
+    });
+};
+
+exports.processarTorneio = function(idTorneio, callback) {
+    login((err, data) => {
+        config.headers.Authorization = `JWT ${token}`;
+        axios.post(`${configGeral.urlAPI}/torneio/processar`, { idTorneio: idTorneio }, config)
+            .then((response) => {
+                callback(null, response.data.message);
+            })
+            .catch((err) => {
+                callback(err.response.data, null);
+            });
         });
+};
+
+exports.listarTorneios = function(callback) {
+    login((err, data) => {
+        config.headers.Authorization = `JWT ${token}`;
+        axios.get(`${configGeral.urlAPI}/torneio`, config)
+            .then((response) => {
+                callback({ err: null, data: response.data });
+            })
+            .catch((err) => {
+                callback(err, null);
+            });
+    });
+};
+
+exports.consultarTorneio = function(idTorneio, callback) {
+    login((err, data) => {
+        config.headers.Authorization = `JWT ${token}`;
+        axios.get(`${configGeral.urlAPI}/torneio/processar/${idTorneio}`, config)
+            .then((response) => {
+                callback({ err: null, data: response.data });
+            })
+            .catch((err) => {
+                callback(err, null);
+            });
+    });
+};
+
+exports.consultarMaoTorneio = function(idTorneio, idMao, callback) {
+    login((err, data) => {
+        config.headers.Authorization = `JWT ${token}`;
+        axios.get(`${configGeral.urlAPI}/torneio/${idTorneio}/mao/${idMao}`, config)
+            .then((response) => {
+                callback({ err: null, data: response.data });
+            })
+            .catch((err) => {
+                callback(err, null);
+            });
+    });
 };
 
 function login(callback){

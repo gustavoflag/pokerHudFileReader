@@ -33,6 +33,8 @@ var mao = {
 arquivos = fs.readdirSync('./../HudFiles/');
 //console.log(arquivos);
 
+torneiosAProcessar = [];
+
 linhasArquivo = [];
 maos = []; 
 
@@ -227,9 +229,54 @@ function enviarArquivoNovo(){
   jogadoresService.inserirTorneio({ idTorneio: torneio.idTorneio, maos: []}, (err, message) => {
     if (!err){
       torneio.maos.forEach(mao => {
+        console.log(`ENVIANDO MÃO ${mao.idMao}`);
         jogadoresService.inserirMaoTorneio(torneio.idTorneio, mao, (err, message) => {
+          if(!err){
+            console.log(`MÃO ${mao.idMao} ENVIADA:`, message);
+          }
+          else {
+            console.log(`MÃO ${mao.idMao} COM ERRO`, err);
+          }
+          countMaosEnviadas++;
+
+          if (countMaosEnviadas == torneio.maos.length){
+            //torneiosAProcessar.push(torneio.idTorneio);
+
+            // console.log('***arquivo enviado***');
+            // arquivos.splice(0, 1);
+            // if (arquivos.length > 0){
+            //   enviarArquivoNovo();
+            // } else {
+
+            // }
+            console.log('processando torneio', torneio.idTorneio);
+            jogadoresService.processarTorneio(torneio.idTorneio, (err, message) => {
+              if (!err){
+                console.log(message);
+              } else {
+                console.log(err);
+              }
+
+              console.log('***arquivo enviado***');
+              arquivos.splice(0, 1);
+              if (arquivos.length > 0){
+                enviarArquivoNovo();
+              } 
+            });
+          }
         });
       })
+    }
+  });
+}
+
+function processarTorneiosSync(){
+
+  jogadoresService.processarTorneio(torneiosAProcessar[0].idTorneio, (err, message) => {
+    if (!err){
+      console.log(message);
+    } else {
+      console.log(err);
     }
   });
 }
