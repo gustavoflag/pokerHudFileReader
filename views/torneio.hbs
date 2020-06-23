@@ -3,13 +3,16 @@
         <h2>Torneio #{{idTorneio}} {{#if processado}}<img class="icon-medium" src="assets/img/check.svg" />{{else}}<img class="icon-medium" src="assets/img/deny.svg" />{{/if}}</h2>
         {{#maos}}
             <p class="p-link">
-                <a href="/torneio/{{../idTorneio}}/mao/{{idMao}}">
-                    Mão #{{idMao}} {{#if processado}}<img class="icon-small" src="assets/img/check.svg" />{{else}}<img class="icon-small" src="assets/img/deny.svg" />{{/if}}
-                </a>
+                <b>
+                    <a href="/torneio/{{../idTorneio}}/mao/{{idMao}}">
+                        Mão #{{idMao}} {{#if processado}}<img class="icon-small" src="assets/img/check.svg" />{{else}}<img class="icon-small" src="assets/img/deny.svg" />{{/if}}
+                    </a>
+                </b>
                 <a class="button" href="/torneio/{{../idTorneio}}/mao/{{idMao}}/exportar"> 
                     .TXT
                 </a>
             </p>
+            <p>Data: <b>{{data}}</b> Vencedor: <b>{{ganhador}}</b> Pote: <b>{{pote}}</b> Bordo: <b>{{bordo}}</b></p>
         {{/maos}}
     {{/torneio}}
     <input type="button" class="float-right" onclick="window.location = '/torneios'" value="Voltar">
