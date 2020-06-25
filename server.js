@@ -13,7 +13,24 @@ app.use('/favicon.ico', express.static('favicon.ico'));
 app.engine('.hbs', exphbs({
   defaultLayout: 'main'
   , extname: '.hbs'
-  , helpers: { handlebarsHelpers, theme: function(){ return config.theme; }}
+  , helpers: { 
+    handlebarsHelpers, 
+    theme: function(){ 
+      return config.theme; 
+    },
+    moreThen: function(v1, v2){
+      return v1 > v2;
+    },
+    moreThenEq: function(v1, v2){
+      return v1 >= v2;
+    },
+    lessThen: function(v1, v2){
+      return v1 < v2;
+    },
+    lessThenEq: function(v1, v2){
+      return v1 <= v2;
+    }
+  }
 }));
 
 

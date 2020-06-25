@@ -90,6 +90,14 @@ exports.consultarTorneio = function(req, res) {
     if (response.err){
       res.render('torneio', { title: 'TQSOP Stats', torneio: null, error: response.err });
     } else {
+      if (response.data && response.data.maos && response.data.maos.length > 0){
+        response.data.maos.forEach(mao =>{
+          if(mao.bordo.length > 0){
+            mao.bordo = mao.bordo.split(" ");
+          }
+        });
+      }
+
       res.render('torneio', { title: 'TQSOP Stats', torneio: response.data });
     }
   });
@@ -100,6 +108,10 @@ exports.consultarMaoTorneio = function(req, res) {
     if (response.err){
       res.render('maoTorneio', { title: 'TQSOP Stats', maoTorneio: null, error: response.err });
     } else {
+      if (response && response.data && response.data.bordo.length > 0){
+        response.data.bordo = response.data.bordo.split(" ");
+      }
+
       res.render('maoTorneio', { title: 'TQSOP Stats', maoTorneio: response.data, idTorneio: req.params.idTorneio });
     }
   });
@@ -118,6 +130,28 @@ exports.exportarMao = function(req, res) {
 
         res.set('Content-Type', 'text/txt');
         res.attachment(`Mao_${req.params.idMao}.txt`);
+        res.send(linhasMao);
+      } else {
+        res.send(response);
+      }
+      
+    }
+  });
+}
+
+exports.exportarTorneio = function(req, res) {
+  jogadoresService.exportarTorneio(req.params.idTorneio, response => {
+    if (response.err){
+      
+    } else {
+      if (response.data){
+        var linhasMao = "";
+        response.data.forEach(linha => {
+            linhasMao += linha + "\n";
+        });
+
+        res.set('Content-Type', 'text/txt');
+        res.attachment(`Torneio_${req.params.idTorneio}.txt`);
         res.send(linhasMao);
       } else {
         res.send(response);

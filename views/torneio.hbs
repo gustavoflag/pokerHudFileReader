@@ -1,18 +1,45 @@
 {{#if torneio}}
     {{#torneio}}
-        <h2>Torneio #{{idTorneio}} {{#if processado}}<img class="icon-medium" src="assets/img/check.svg" />{{else}}<img class="icon-medium" src="assets/img/deny.svg" />{{/if}}</h2>
+        <h2>
+            Torneio #{{idTorneio}} 
+            {{#if processado}}<img class="icon-medium" src="assets/img/check.svg" />{{else}}<img class="icon-medium" src="assets/img/deny.svg" />{{/if}}
+            {{date data "DD/MM/YYYY"}}
+            <a class="button" href="/torneio/{{idTorneio}}/exportar"> 
+                .TXT
+            </a>
+        </h2>
         {{#maos}}
-            <p class="p-link">
-                <b>
-                    <a href="/torneio/{{../idTorneio}}/mao/{{idMao}}">
-                        Mão #{{idMao}} {{#if processado}}<img class="icon-small" src="assets/img/check.svg" />{{else}}<img class="icon-small" src="assets/img/deny.svg" />{{/if}}
-                    </a>
-                </b>
-                <a class="button" href="/torneio/{{../idTorneio}}/mao/{{idMao}}/exportar"> 
-                    .TXT
-                </a>
-            </p>
-            <p>Data: <b>{{data}}</b> Vencedor: <b>{{ganhador}}</b> Pote: <b>{{pote}}</b> Bordo: <b>{{bordo}}</b></p>
+            <div class="box-400">
+                <div class="flex-row space-between">
+                    <div class="flex-5">
+                        <a href="/torneio/{{../idTorneio}}/mao/{{idMao}}">
+                            <b>#{{idMao}}</b>
+                            {{#if processado}}<img class="icon-small" src="assets/img/check.svg" />{{else}}<img class="icon-small" src="assets/img/deny.svg" />{{/if}}
+                        </a>
+                    </div>
+                    <div class="flex-5 text-align-center">
+                        {{#if bordo}}{{#bordo}}<img class="carta" src="assets/img/cartas/{{.}}.png" />{{#if (moreThenEq @index 2)}}&nbsp;&nbsp;{{/if}}{{/bordo}}{{/if}}
+                    </div>
+                    <div class="flex-1 text-align-right" style="margin-right:-15px;">
+                        <a class="button" href="/torneio/{{../idTorneio}}/mao/{{idMao}}/exportar"> 
+                            .TXT
+                        </a>
+                    </div>
+                </div>
+                <div class="flex-row space-between">
+                    <div class="flex-5">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="flex-row space-between">
+                     <div class="flex-5">
+                        Vencedor: <b>{{ganhador}}</b>
+                    </div>
+                    <div class="flex-2 text-align-right">
+                        Pote: <b>{{pote}}</b>
+                    </div>
+                </div>
+            </div>
         {{/maos}}
     {{/torneio}}
     <input type="button" class="float-right" onclick="window.location = '/torneios'" value="Voltar">

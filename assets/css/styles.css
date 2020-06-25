@@ -98,12 +98,28 @@ img.icon-medium{
     text-align: center;
 }
 
+.text-align-right{
+    text-align: right;
+}
+
+.text-align-left{
+    text-align: left;
+}
+
 .flex-1{
     flex: 1;
 }
 
+.flex-3{
+    flex: 3;
+}
+
+.flex-4{
+    flex: 4;
+}
+
 .flex-5{
-    flex: 1;
+    flex: 5;
 }
 
 .padding-0{
@@ -236,6 +252,22 @@ div.box-sm div.line{
     border-bottom: 1px solid var(--box-border);
 }
 
+div.box-400{
+    border: 1px solid gray; 
+    border-radius: 5px; 
+    margin: 5px; 
+    padding: 10px 15px;
+    width:400px;
+}
+
+div.box-400 a{
+    color: unset;
+    text-decoration: unset;
+}
+div.box-400 a:hover{
+    text-decoration: underline;
+}
+
 button.btn-link{
     background-color: transparent;
     border: 0;
@@ -254,4 +286,14 @@ p.p-link a:hover{
 p.p-thin{
     margin: 0;
     padding: 0;
+}
+
+img.carta{
+    height: 30px;
+    vertical-align: middle;
+}
+
+img.cartaGrande{
+    height: 40px;
+    vertical-align: middle;
 }

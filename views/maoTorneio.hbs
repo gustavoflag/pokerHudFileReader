@@ -1,15 +1,19 @@
 {{#if maoTorneio}}
     {{#maoTorneio}}
         <h2>
-            Mao #{{idMao}} {{#if processado}}<img class="icon-medium" src="assets/img/check.svg" />{{else}}<img class="icon-medium" src="assets/img/deny.svg" />{{/if}}
+            Mão #{{idMao}} 
+            {{#if processado}}<img class="icon-medium" src="assets/img/check.svg" />{{else}}<img class="icon-medium" src="assets/img/deny.svg" />{{/if}}
+            {{date data "DD/MM/YYYY HH:mm:ss"}}
             <a class="button" href="/torneio/{{../idTorneio}}/mao/{{idMao}}/exportar"> 
                 .TXT
             </a>
         </h2>
-        <p>Data: {{data}}</p>
-        <p>Ganhador: {{ganhador}}</p>
-        <p>Pote: {{pote}}</p>
-        <p>Bordo: {{bordo}}</p>
+        <p>
+            {{#if bordo}}
+                {{#bordo}}<img class="cartaGrande" src="assets/img/cartas/{{.}}.png" />{{#if (moreThenEq @index 2)}}&nbsp;&nbsp;&nbsp;{{/if}}{{/bordo}}
+            {{/if}}
+        </p>
+        <p>Ganhador: <b>{{ganhador}}</b>&nbsp;&nbsp;&nbsp;Pote: <b>{{pote}}</b></p>
         <div id="text-mao">
             {{#linhas}}
                 <p class="p-thin">{{.}}</p>

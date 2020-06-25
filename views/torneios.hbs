@@ -1,11 +1,19 @@
 <h2>TORNEIOS</h2>
 {{#if torneios}}
         {{#torneios}}
-            <p class="p-link">
-                <a href="/torneio/{{idTorneio}}">
-                    Torneio #{{idTorneio}} {{#if processado}}<img class="icon-small" src="assets/img/check.svg" />{{else}}<img class="icon-small" src="assets/img/deny.svg" />{{/if}}
-                </a>
-            </p>
+        <div class="box-400">
+            <a href="/torneio/{{idTorneio}}">
+                <div class="flex-row space-between">
+                    <div class="flex-5">
+                        #{{idTorneio}}
+                        {{#if processado}}<img class="icon-small" src="assets/img/check.svg" />{{else}}<img class="icon-small" src="assets/img/deny.svg" />{{/if}}
+                    </div>
+                    <div class="flex-5 text-align-right">
+                        {{date data "DD/MM/YYYY"}}
+                    </div>               
+                </div>
+            </a>
+        </div>
         {{/torneios}}
         <input type="button" class="float-right" onclick="window.location = '/'" value="Voltar">
 {{/if}}

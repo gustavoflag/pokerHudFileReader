@@ -40,4 +40,7 @@ module.exports = function(app) {
 
   app.route('/torneio/:idTorneio/mao/:idMao/exportar')
     .get(hudController.exportarMao);
+
+  app.route('/torneio/:idTorneio/exportar')
+    .get(hudController.exportarTorneio);
 };

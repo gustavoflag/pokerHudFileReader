@@ -191,6 +191,19 @@ exports.consultarMaoTorneio = function(idTorneio, idMao, callback) {
     });
 };
 
+exports.exportarTorneio = function(idTorneio, callback) {
+    login((err, data) => {
+        config.headers.Authorization = `JWT ${token}`;
+        axios.get(`${configGeral.urlAPI}/torneio/exportarMaos/${idTorneio}`, config)
+            .then((response) => {
+                callback({ err: null, data: response.data });
+            })
+            .catch((err) => {
+                callback(err, null);
+            });
+    });
+};
+
 function login(callback){
     if (!token){
         var loginData = {
